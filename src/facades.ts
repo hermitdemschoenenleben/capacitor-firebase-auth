@@ -1,16 +1,18 @@
 import 'firebase/auth';
-import {registerPlugin} from '@capacitor/core';
+import { registerPlugin } from '@capacitor/core';
 
 import firebase from 'firebase/app';
+(<any>window).firebaseFromCapacitorFirebaseAuth = firebase;
+export const firebaseFromCapacitorFirebaseAuth = firebase;
 import { Observable, throwError } from 'rxjs';
 
 import {
-  AppleSignInResult, CapacitorFirebaseAuthPlugin, FacebookSignInResult, GoogleSignInResult,
-  PhoneSignInResult, SignInOptions, TwitterSignInResult
+	AppleSignInResult, CapacitorFirebaseAuthPlugin, FacebookSignInResult, GoogleSignInResult,
+	PhoneSignInResult, SignInOptions, TwitterSignInResult
 } from './definitions';
 
 export const CapacitorFirebaseAuth = registerPlugin<CapacitorFirebaseAuthPlugin>('CapacitorFirebaseAuth', {
-    web: () => import('./web').then(m => new m.CapacitorFirebaseAuthWeb()),
+	web: () => import('./web').then(m => new m.CapacitorFirebaseAuthWeb()),
 });
 const plugin: CapacitorFirebaseAuthPlugin = CapacitorFirebaseAuth;
 
@@ -43,6 +45,7 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 	}
 };
 
+
 /**
  * Call the Google sign in method on native layer and sign in on web layer with retrieved credentials.
  */
@@ -59,7 +62,7 @@ export const cfaSignInGoogle = (): Observable<firebase.User> => {
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					if(!userCredential.user) {
+					if (!userCredential.user) {
 						throw new Error('Firebase User was not received.')
 					}
 					observer.next(userCredential.user);
@@ -90,7 +93,7 @@ export const cfaSignInTwitter = (): Observable<firebase.User> => {
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					if(!userCredential.user) {
+					if (!userCredential.user) {
 						throw new Error('Firebase User was not received.')
 					}
 					observer.next(userCredential.user);
@@ -118,7 +121,7 @@ export const cfaSignInFacebook = (): Observable<firebase.User> => {
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					if(!userCredential.user) {
+					if (!userCredential.user) {
 						throw new Error('Firebase User was not received.')
 					}
 					observer.next(userCredential.user);
@@ -150,7 +153,7 @@ export const cfaSignInApple = (): Observable<firebase.User> => {
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					if(!userCredential.user) {
+					if (!userCredential.user) {
 						throw new Error('Firebase User was not received.')
 					}
 					observer.next(userCredential.user);
@@ -184,7 +187,7 @@ export const cfaSignInPhone = (phone: string, verificationCode?: string, resendT
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					if(!userCredential.user) {
+					if (!userCredential.user) {
 						throw new Error('Firebase User was not received.')
 					}
 					observer.next(userCredential.user);
