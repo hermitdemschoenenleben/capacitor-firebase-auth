@@ -13,7 +13,7 @@
     s.dependency 'GoogleSignIn'
     s.dependency 'FBSDKCoreKit'
     s.dependency 'FBSDKLoginKit'
-    s.dependency 'Firebase/Core'
-    s.dependency 'Firebase/Auth'
+    s.dependency 'Firebase/Core', '8.9.1'
+    s.dependency 'Firebase/Auth', '8.9.1'
     s.static_framework = true
   end
